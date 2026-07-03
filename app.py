@@ -145,7 +145,7 @@ elif "Daftar Wajah" in menu:
                 if face_crop.shape[0] > 10 and face_crop.shape[1] > 10:
                     feat = extract_features(face_crop, facenet_session)
                     registered_faces[reg_name] = feat
-                    st.success(f"✅ Wajah '{reg_name}' berhasil didaftarkan! Silakan buka halaman Snapshot.")
+                    st.success(f" Wajah '{reg_name}' berhasil didaftarkan! Silakan buka halaman Snapshot.")
                 else:
                     st.error("Wajah terdeteksi tapi terlalu kecil/buram.")
             else:
@@ -155,9 +155,9 @@ elif "Daftar Wajah" in menu:
             
     st.divider()
     
-    st.write("### 🗃️ Data Wajah Tersimpan:")
+    st.write("###  Data Wajah Tersimpan:")
     if registered_faces:
         for name in registered_faces.keys():
-            st.info(f"👤 {name}")
+            st.info(f" {name}")
     else:
         st.write("Belum ada data wajah.")
