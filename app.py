@@ -28,7 +28,7 @@ if "my_face_db" not in sys.modules:
 registered_faces = sys.modules["my_face_db"]
 
 # --- HEADER SIDEBAR ---
-st.sidebar.markdown("## 👤 Face AI")
+st.sidebar.markdown("##  IRIS ")
 st.sidebar.caption("Sistem Pengenalan Wajah Berbasis AI")
 st.sidebar.divider()
 
