@@ -15,7 +15,7 @@ registered_faces = sys.modules["my_face_db"]
 
 # --- MENU NAVIGASI SAMPING ---
 st.sidebar.title("Menu Navigasi")
-menu = st.sidebar.radio("Pilih Halaman:", [" Halaman Live (WebRTC)", " Snapshot (Pasti Jalan di Cloud)", " Kamera IP (Lokal Saja)", "Daftar Wajah"])
+menu = st.sidebar.radio("Pilih Halaman:", [" Halaman Live (WebRTC)", " Snapshot (Pasti Jalan di Cloud)", "Daftar Wajah"])
 
 RTC_CONFIGURATION = RTCConfiguration(
     {"iceServers": [
@@ -109,7 +109,7 @@ def video_frame_callback(frame: av.VideoFrame) -> av.VideoFrame:
 # HALAMAN 1: LIVE FACE RECOGNITION (WebRTC)
 # ==========================================
 if "Halaman Live" in menu:
-    st.title("Live Face Recognition")
+    st.title("Face Recognition")
     
     if not registered_faces:
         st.warning(" Belum ada wajah terdaftar. Silakan ke halaman 'Daftar Wajah'.")
