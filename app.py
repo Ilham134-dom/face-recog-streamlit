@@ -100,33 +100,10 @@ def process_frame_logic(img):
                     cv2.putText(img, f"Err: {err_msg}", (x1, y1-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
     return img
 
-def video_frame_callback(frame: av.VideoFrame) -> av.VideoFrame:
-    img = frame.to_ndarray(format="bgr24")
-    processed_img = process_frame_logic(img)
-    return av.VideoFrame.from_ndarray(processed_img, format="bgr24")
-
 # ==========================================
-# HALAMAN 1: LIVE FACE RECOGNITION (WebRTC)
+# HALAMAN 1: SNAPSHOT (PASTI JALAN DI CLOUD)
 # ==========================================
-if "Halaman Live" in menu:
-    st.title("Face Recognition")
-    
-    if not registered_faces:
-        st.warning(" Belum ada wajah terdaftar. Silakan ke halaman 'Daftar Wajah'.")
-        
-    webrtc_streamer(
-        key="face-recognition",
-        mode=WebRtcMode.SENDRECV,
-        rtc_configuration=RTC_CONFIGURATION,
-        video_frame_callback=video_frame_callback,
-        media_stream_constraints={"video": True, "audio": False},
-        async_processing=True
-    )
-
-# ==========================================
-# HALAMAN 1.5: SNAPSHOT (PASTI JALAN DI CLOUD)
-# ==========================================
-elif "Snapshot" in menu:
+if "Snapshot" in menu:
     st.title("Face Recognition")    
     if not registered_faces:
         st.warning(" Belum ada wajah terdaftar. Wajah Anda akan berlabel 'Unknown'.")
