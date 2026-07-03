@@ -15,7 +15,7 @@ registered_faces = sys.modules["my_face_db"]
 
 # --- MENU NAVIGASI SAMPING ---
 st.sidebar.title("Menu Navigasi")
-menu = st.sidebar.radio("Pilih Halaman:", [" Halaman Live (WebRTC)", " Kamera IP (HP / CCTV)", " Daftar Wajah"])
+menu = st.sidebar.radio("Pilih Halaman:", ["📷 Halaman Live (WebRTC)", "📸 Snapshot (Pasti Jalan di Cloud)", "📹 Kamera IP (Lokal Saja)", "📝 Daftar Wajah"])
 
 RTC_CONFIGURATION = RTCConfiguration(
     {"iceServers": [
@@ -124,7 +124,28 @@ if "Halaman Live" in menu:
     )
 
 # ==========================================
-# HALAMAN 2: IP CAMERA (CCTV / Aplikasi HP)
+# HALAMAN 1.5: SNAPSHOT (PASTI JALAN DI CLOUD)
+# ==========================================
+elif "Snapshot" in menu:
+    st.title("📸 Snapshot Face Recognition")
+    st.write("Fitur ini **100% dijamin jalan di Streamlit Cloud** karena tidak menggunakan sistem Live Video (WebRTC).")
+    
+    if not registered_faces:
+        st.warning("⚠️ Belum ada wajah terdaftar. Wajah Anda akan berlabel 'Unknown'.")
+        
+    camera_image = st.camera_input("Ambil Foto untuk Dikenali")
+    
+    if camera_image is not None:
+        file_bytes = np.asarray(bytearray(camera_image.read()), dtype=np.uint8)
+        img = cv2.imdecode(file_bytes, 1)
+        
+        # Proses deteksi & pengenalan
+        processed_img = process_frame_logic(img)
+        
+        st.image(processed_img, channels="BGR", caption="Hasil Pengenalan Wajah", use_column_width=True)
+
+# ==========================================
+# HALAMAN 2: IP CAMERA (Hanya untuk Lokal)
 # ==========================================
 elif "Kamera IP" in menu:
     st.title("📹 Live dari IP Camera / Aplikasi HP")
