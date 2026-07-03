@@ -8,13 +8,32 @@ from streamlit_webrtc import webrtc_streamer, WebRtcMode, RTCConfiguration
 
 st.set_page_config(page_title="Lightweight Face Recognition", layout="wide")
 
+# --- CUSTOM CSS UNTUK MERAPIKAN TAMPILAN ---
+st.markdown("""
+<style>
+    /* Memotong ruang kosong (padding) yang berlebihan di atas halaman utama */
+    .block-container {
+        padding-top: 2rem !important;
+    }
+    /* Memotong ruang kosong di atas sidebar */
+    [data-testid="stSidebar"] > div:first-child {
+        padding-top: 2rem !important;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 # Menggunakan sys.modules untuk menyimpan database wajah agar aman diakses oleh semua thread
 if "my_face_db" not in sys.modules:
     sys.modules["my_face_db"] = {}
 registered_faces = sys.modules["my_face_db"]
 
+# --- HEADER SIDEBAR ---
+st.sidebar.markdown("## 👤 Face AI")
+st.sidebar.caption("Sistem Pengenalan Wajah Berbasis AI")
+st.sidebar.divider()
+
 # --- MENU NAVIGASI SAMPING ---
-st.sidebar.title("Menu Navigasi")
+st.sidebar.write("**Menu Navigasi:**")
 menu = st.sidebar.radio("Pilih Halaman:", ["Snapshot", "Daftar Wajah"])
 
 RTC_CONFIGURATION = RTCConfiguration(
