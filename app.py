@@ -15,7 +15,7 @@ registered_faces = sys.modules["my_face_db"]
 
 # --- MENU NAVIGASI SAMPING ---
 st.sidebar.title("Menu Navigasi")
-menu = st.sidebar.radio("Pilih Halaman:", [" Halaman Live (WebRTC)", " Snapshot (Pasti Jalan di Cloud)", "Daftar Wajah"])
+menu = st.sidebar.radio("Pilih Halaman:", [" Halaman Live (WebRTC)", "Snapshot", "Daftar Wajah"])
 
 RTC_CONFIGURATION = RTCConfiguration(
     {"iceServers": [
@@ -127,9 +127,7 @@ if "Halaman Live" in menu:
 # HALAMAN 1.5: SNAPSHOT (PASTI JALAN DI CLOUD)
 # ==========================================
 elif "Snapshot" in menu:
-    st.title(" Snapshot Face Recognition")
-    st.write("Fitur ini **100% dijamin jalan di Streamlit Cloud** karena tidak menggunakan sistem Live Video (WebRTC).")
-    
+    st.title("Face Recognition")    
     if not registered_faces:
         st.warning(" Belum ada wajah terdaftar. Wajah Anda akan berlabel 'Unknown'.")
         
