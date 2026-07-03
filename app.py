@@ -18,7 +18,15 @@ st.sidebar.title("Menu Navigasi")
 menu = st.sidebar.radio("Pilih Halaman:", [" Halaman Live (WebRTC)", " Kamera IP (HP / CCTV)", " Daftar Wajah"])
 
 RTC_CONFIGURATION = RTCConfiguration(
-    {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
+    {"iceServers": [
+        {"urls": ["stun:stun.l.google.com:19302"]},
+        {"urls": ["stun:stun1.l.google.com:19302"]},
+        {
+            "urls": ["turn:openrelay.metered.ca:80", "turn:openrelay.metered.ca:443", "turn:openrelay.metered.ca:443?transport=tcp"],
+            "username": "openrelayproject",
+            "credential": "openrelayproject"
+        }
+    ]}
 )
 
 @st.cache_resource
