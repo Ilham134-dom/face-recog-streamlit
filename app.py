@@ -15,7 +15,7 @@ registered_faces = sys.modules["my_face_db"]
 
 # --- MENU NAVIGASI SAMPING ---
 st.sidebar.title("Menu Navigasi")
-menu = st.sidebar.radio("Pilih Halaman:", ["📷 Halaman Live (WebRTC)", "📸 Snapshot (Pasti Jalan di Cloud)", "📹 Kamera IP (Lokal Saja)", "📝 Daftar Wajah"])
+menu = st.sidebar.radio("Pilih Halaman:", [" Halaman Live (WebRTC)", " Snapshot (Pasti Jalan di Cloud)", " Kamera IP (Lokal Saja)", "Daftar Wajah"])
 
 RTC_CONFIGURATION = RTCConfiguration(
     {"iceServers": [
@@ -109,10 +109,10 @@ def video_frame_callback(frame: av.VideoFrame) -> av.VideoFrame:
 # HALAMAN 1: LIVE FACE RECOGNITION (WebRTC)
 # ==========================================
 if "Halaman Live" in menu:
-    st.title("🔴 Live Face Recognition")
+    st.title("Live Face Recognition")
     
     if not registered_faces:
-        st.warning("⚠️ Belum ada wajah terdaftar. Silakan ke halaman 'Daftar Wajah'.")
+        st.warning(" Belum ada wajah terdaftar. Silakan ke halaman 'Daftar Wajah'.")
         
     webrtc_streamer(
         key="face-recognition",
@@ -127,11 +127,11 @@ if "Halaman Live" in menu:
 # HALAMAN 1.5: SNAPSHOT (PASTI JALAN DI CLOUD)
 # ==========================================
 elif "Snapshot" in menu:
-    st.title("📸 Snapshot Face Recognition")
+    st.title(" Snapshot Face Recognition")
     st.write("Fitur ini **100% dijamin jalan di Streamlit Cloud** karena tidak menggunakan sistem Live Video (WebRTC).")
     
     if not registered_faces:
-        st.warning("⚠️ Belum ada wajah terdaftar. Wajah Anda akan berlabel 'Unknown'.")
+        st.warning(" Belum ada wajah terdaftar. Wajah Anda akan berlabel 'Unknown'.")
         
     camera_image = st.camera_input("Ambil Foto untuk Dikenali")
     
@@ -144,46 +144,6 @@ elif "Snapshot" in menu:
         
         st.image(processed_img, channels="BGR", caption="Hasil Pengenalan Wajah", use_column_width=True)
 
-# ==========================================
-# HALAMAN 2: IP CAMERA (Hanya untuk Lokal)
-# ==========================================
-elif "Kamera IP" in menu:
-    st.title("📹 Live dari IP Camera / Aplikasi HP")
-    
-    st.info("💡 **Petunjuk:** Gunakan aplikasi seperti **IP Webcam** di HP Android. Masukkan URL videonya ke kolom di bawah ini.")
-    
-    if not registered_faces:
-        st.warning("⚠️ Belum ada wajah terdaftar. Wajah Anda akan berlabel 'Unknown'.")
-        
-    # Input URL untuk Kamera IP
-    ip_url = st.text_input("URL IP Camera:", value="http://192.168.1.10:8080/video")
-    
-    run_ip_cam = st.checkbox("Mulai Kamera IP")
-    
-    FRAME_WINDOW = st.image([])
-    
-    if run_ip_cam:
-        cap = cv2.VideoCapture(ip_url)
-        if not cap.isOpened():
-            st.error("Gagal terhubung! Pastikan URL benar dan HP dalam satu jaringan Wi-Fi dengan komputer ini.")
-        else:
-            while run_ip_cam:
-                ret, frame = cap.read()
-                if not ret:
-                    st.error("Koneksi terputus dari IP Camera.")
-                    break
-                
-                # Resize sedikit agar proses ringan (opsional)
-                frame = cv2.resize(frame, (640, 480))
-                
-                # Lempar ke fungsi processing yang sama persis dengan WebRTC
-                processed_img = process_frame_logic(frame)
-                
-                # Streamlit membaca format RGB
-                frame_rgb = cv2.cvtColor(processed_img, cv2.COLOR_BGR2RGB)
-                FRAME_WINDOW.image(frame_rgb)
-            
-            cap.release()
 
 # ==========================================
 # HALAMAN 3: DAFTAR WAJAH (REGISTRASI)
