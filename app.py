@@ -15,7 +15,7 @@ registered_faces = sys.modules["my_face_db"]
 
 # --- MENU NAVIGASI SAMPING ---
 st.sidebar.title("Menu Navigasi")
-menu = st.sidebar.radio("Pilih Halaman:", [" Halaman Live (WebRTC)", "Snapshot", "Daftar Wajah"])
+menu = st.sidebar.radio("Pilih Halaman:", [" Halaman Live", "Snapshot", "Daftar Wajah"])
 
 RTC_CONFIGURATION = RTCConfiguration(
     {"iceServers": [
@@ -147,7 +147,7 @@ elif "Snapshot" in menu:
 # HALAMAN 3: DAFTAR WAJAH (REGISTRASI)
 # ==========================================
 elif "Daftar Wajah" in menu:
-    st.title("📝 Registrasi Wajah")
+    st.title("Registrasi Wajah")
     st.write("Silakan ambil foto untuk menyimpan data wajah Anda ke dalam sistem.")
     
     reg_name = st.text_input("Masukkan Nama Anda:")
