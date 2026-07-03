@@ -15,3 +15,5 @@ Thumbs.db
 
 # Optional: Streamlit config if you have secrets
 .streamlit/
+
+readme.md
