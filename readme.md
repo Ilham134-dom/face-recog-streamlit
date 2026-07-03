@@ -9,3 +9,9 @@ deploy ke streamlit sharing / cloud
 2. push kodingan ke github
 3. login di streamlit sharing
 4. connect github ke streamlit sharing
+
+
+kalau ada yang baru :
+1. git add .
+2. git commit -m "pesan baru"
+3. git push -u origin main
